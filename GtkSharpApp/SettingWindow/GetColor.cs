@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace DVA222_Projekt
 {
@@ -10,9 +11,9 @@ namespace DVA222_Projekt
         {
             Color = color.ToLower();
             
-            var rgbRed = new HashSet<string>{"röd", "red", "gul", "yellow", "Magneta", "vit", "white"};
-            var rgbGreen = new HashSet<string>{"gul", "yellow", "cayan", "grön", "green", "vit", "white"}; 
-            var rgbBlue = new HashSet<string>{"blå", "blue", "cayan", "green", "Magneta", "vit", "white"};
+            var rgbRed = new HashSet<string>{"röd", "red", "gul", "yellow", "magneta", "vit", "white"};
+            var rgbGreen = new HashSet<string>{"gul", "yellow", "cyan", "grön", "green", "vit", "white"}; 
+            var rgbBlue = new HashSet<string>{"blå", "blue", "cyan", "magneta", "vit", "white"};
             
             RGB[0] = (rgbRed.Contains(Color)) ? 1 : 0;
             RGB[1] = (rgbGreen.Contains(Color)) ? 1 : 0;

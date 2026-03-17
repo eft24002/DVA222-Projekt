@@ -9,7 +9,6 @@ namespace DVA222_Projekt
         {
             Application.Init();
             new InputWindow();
-            new HelpWindow();
             Application.Run();
         }
     }

@@ -16,7 +16,7 @@ namespace DVA222_Projekt
             Question = question;
             Choice = new Entry();
         }
-        public void AskQuestion(VBox vbox)
+        public void AskQuestion(Box vbox)
         {
             Label qLabel = new Label(Question);
             qLabel.Xalign = 0;

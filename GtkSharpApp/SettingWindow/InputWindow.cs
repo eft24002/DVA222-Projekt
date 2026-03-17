@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using Gtk;
+using System.Collections.Generic;
 
 /*
 Tänkte att vi kan först ta upp ett fönster för att 
@@ -16,10 +17,9 @@ namespace DVA222_Projekt
 
         public InputWindow() : base("Connect Four - Settings")
         {
-            SetDefaultSize(500,400);
             SetPosition(WindowPosition.Center);
             DeleteEvent += delegate { Application.Quit(); };
-            VBox vbox = new VBox(false, 10);
+            Box vbox = new Box(Orientation.Vertical, 10);
 
             Label title = new Label("Welcome to Connect Four! Please select your settings.");
             title.Xalign = 0;
@@ -36,10 +36,10 @@ namespace DVA222_Projekt
                 s.AskQuestion(vbox);
             }
 
-            Alignment filler = new Alignment(0, 0, 1, 1);
+            Box filler = new Box(Orientation.Vertical, 0);
             vbox.PackStart(filler, true, true, 0);
 
-            HBox hbox = new HBox(false, 5);
+            Box hbox = new Box(Orientation.Horizontal, 5);
 
             Button next = new Button("Start game->");
             next.SetSizeRequest(80, 35);
