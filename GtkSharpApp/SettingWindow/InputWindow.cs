@@ -15,7 +15,7 @@ namespace DVA222_Projekt
     {
        public List<SettingsField> questions = new List<SettingsField>();
 
-        public InputWindow() : base("Connect Four - Settings")
+        public InputWindow() : base("Choose mode")
         {
             SetPosition(WindowPosition.Center);
             DeleteEvent += delegate { Application.Quit(); };
@@ -25,8 +25,8 @@ namespace DVA222_Projekt
             title.Xalign = 0;
             vbox.PackStart(title, false, false, 0);
 
-            questions.Add(new SettingsField("Enter number of rows:"));
-            questions.Add(new SettingsField("Enter number of columns:"));
+            questions.Add(new SettingsField("Enter number of rows (animation):"));
+            questions.Add(new SettingsField("Enter number of columns (animation):"));
             questions.Add(new SettingsField("Enter number of pixels in each cell:"));
             questions.Add(new SettingsField("Enter desired background color:"));
             questions.Add(new SettingsField("Enter the desired color of the lines:"));   
@@ -39,18 +39,24 @@ namespace DVA222_Projekt
             Box filler = new Box(Orientation.Vertical, 0);
             vbox.PackStart(filler, true, true, 0);
 
-            Box hbox = new Box(Orientation.Horizontal, 5);
+            Box hbox = new Box(Orientation.Horizontal, 10);
 
-            Button next = new Button("Start game->");
-            next.SetSizeRequest(80, 35);
-            next.Clicked += OnNextClicked;
-            hbox.PackEnd(next, false, false, 10);
-            vbox.PackEnd(hbox, false, false, 10);
+            Button animationButton = new Button("Run animation");
+            animationButton.SetSizeRequest(120, 35);
+            animationButton.Clicked += OnAnimationClicked;
+            hbox.PackEnd(animationButton, true, true, 0);
+
+            Button gameButton = new Button("Run game (9x9)");
+            gameButton.SetSizeRequest(120, 35);
+            gameButton.Clicked += OnGameClicked;
+            hbox.PackEnd(gameButton, true, true, 0);
+
+            vbox.PackEnd(hbox, false, false , 10);
 
             Add(vbox);
             ShowAll();    
         }
-        public void OnNextClicked(object sender, EventArgs e)
+        public void OnAnimationClicked(object sender, EventArgs e)
         {
             int rows = questions[0].GetIntAnswer();
             int columns = questions[1].GetIntAnswer();   
@@ -58,11 +64,29 @@ namespace DVA222_Projekt
             string backgroundColor = questions[3].GetAnswer();   
             string lineColor = questions[4].GetAnswer();
 
-            BoardWindow gameBoard = new BoardWindow(rows, columns, cellSize, backgroundColor, lineColor);
-            gameBoard.ShowAll();
+            if (rows <= 0 || columns <= 0 || cellSize <= 0)
+            {
+                ShowError("Rows, columns and cell size must be greater than 0.");
+                return;
+            }
 
-            Window inputWindow = (Window)((Button)sender).Toplevel;
-            inputWindow.Destroy();
+            BoardWindow animationWindow = new BoardWindow(rows, columns, cellSize, backgroundColor, lineColor);
+            animationWindow.ShowAll();
+            Destroy();
+        }
+
+        public void OnGameClicked(object sender, EventArgs e)
+        {
+            GameBoardWindow gameWindow = new GameBoardWindow();
+            gameWindow.ShowAll();
+            Destroy();
+        }
+
+        private void ShowError(string message)
+        {
+            MessageDialog md = new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.Ok, message);
+            md.Run();
+            md.Destroy();
         }
     }
 }

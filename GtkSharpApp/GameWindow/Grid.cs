@@ -30,7 +30,7 @@ namespace DVA222_Projekt
             SetSizeRequest(cellSize*columns, cellSize*rows);
         }
 
-        public void DrawCircleInCell(int row, int column, string color)
+        public void SetCell(int row, int column, string color)
         {
             if (row < 0 || row >= rows || column < 0 || column >= columns)
                 return;
@@ -49,7 +49,7 @@ namespace DVA222_Projekt
         {
             if (row < 0 || row >= rows || column < 0 || column >= columns)
                 return false;
-                
+
             return circles[row, column] == null;
         }
 

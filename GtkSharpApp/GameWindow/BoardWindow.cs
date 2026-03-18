@@ -59,7 +59,7 @@ namespace DVA222_Projekt
             {
                 int index = random.Next(emptyCells.Count);
                 var cell = emptyCells[index];
-                grid.DrawCircleInCell(cell.row, cell.col, "red");
+                grid.SetCell(cell.row, cell.col, "red");
             }
             return true;
         }
